@@ -540,3 +540,65 @@ button {
 .sd{
     width: inherit;
 } */
+
+
+/* dropdown css */
+/*/* styles.css */
+/* .nav-link {
+    padding: 1rem;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    position: relative;
+}
+
+.icon-link {
+    padding: 1rem;
+    text-decoration: none;
+    color: #333;
+    font-size: 1.25rem;
+}
+
+.dropdown-container {
+    display: none;
+    position: absolute;
+    width: 100%;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.dropdown-content {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
+}
+
+.dropdown-section {
+    max-width: 300px;
+}
+
+.dropdown-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.dropdown-links a {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.dropdown-links a:hover {
+    text-decoration: underline;
+}
+
+/* Show dropdown on hover */
+.img:hover .dropdown-container {
+    display: block;
+} */
+  */
