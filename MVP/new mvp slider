@@ -1,0 +1,481 @@
+<style>
+  /* Hide the slider on desktop */
+  .cards {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .title-description h2 {
+    margin: 0;
+    font-size: 2em;
+  }
+
+  .title-description p {
+    margin: 0 0 20px;
+    color: gray;
+  }
+
+  .buttons {
+    margin: 20px 0;
+  }
+
+  .tab-button {
+    background-color: #1c656f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+
+  .tab-button.active {
+    background-color: #145156;
+  }
+
+  .tab-button:hover {
+    background-color: #145156;
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .card {
+    background-color: white;
+    border-radius: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* margin: 10px; */
+    width: 100%;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    border: 1px solid #cbbfbf;
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+    height: -webkit-fill-available;
+  }
+
+  .card-text {
+    padding: 10px;
+  }
+
+  .card h3 {
+    margin: 0;
+    font-size: 1.2em;
+    text-align: justify;
+  }
+
+  .price {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    font-size: 1em;
+    color: #1c656f;
+  }
+
+  .old-price {
+    text-decoration: line-through;
+    color: red;
+  }
+
+  .arrow {
+    transition: transform 0.3s;
+  }
+
+  .card:hover .arrow {
+    transform: translateX(120px);
+  }
+
+  .hover-card {
+    cursor: pointer;
+  }
+
+  .hover-card .hover-text {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(249, 238, 238, 0.7);
+    color: rgb(0, 0, 0);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: justify;
+  }
+
+  .hover-card:hover .hover-text {
+    display: flex;
+  }
+
+  @media (max-width: 768px) {
+    /* headder--------------------------------------------------------------- */
+    .nav-left {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .contact-info {
+      display: none;
+    }
+    .contact-info-res {
+      display: block;
+      display: flex;
+    }
+
+    .nav-center {
+      flex-direction: column;
+      align-items: flex-start;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: white;
+      display: none;
+      border-top: 1px solid #ddd;
+    }
+
+    .nav-center a {
+      margin: 10px;
+      width: 100%;
+      text-align: left;
+      padding: 10px;
+    }
+
+    .nav-right {
+      display: none;
+    }
+
+    .nav-center {
+      flex-direction: column;
+      align-items: flex-start;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: white;
+      display: none;
+      border-top: 1px solid #ddd;
+    }
+
+    .nav-center a {
+      margin: 10px;
+      width: 100%;
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .hamburger {
+      display: block;
+    }
+
+    .nav-center.active {
+      display: flex;
+      animation: slideDown 0.5s ease-out;
+      z-index: 99999;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* hero section------------------------------------------------------- */
+    .hero {
+      height: auto;
+    }
+
+    .hero-img img {
+      width: 100%;
+      height: 100vh;
+    }
+    .logo {
+      height: 38px;
+    }
+
+    /* hero image */
+
+    .hero-img img {
+      height: 100vh;
+      position: relative;
+      left: -905px;
+      width: auto;
+    }
+  }
+  /* Hide the slider on desktop */
+  @media (min-width: 768px) {
+    .slider {
+      display: none;
+    }
+  }
+
+  /* Mobile slider styles */
+  .slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .slides {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .card {
+    min-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .prev,
+  .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: background-color 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: #00000040;  
+  }
+
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  .prev {
+    left: 0;
+  }
+
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+  .dots-container {
+    margin-top: 12px;
+  }
+  .active {
+    background-color: #717171;
+  }
+</style>
+<body>
+    <div class="cards">
+      <div class="title-description">
+        <h2>SHOP BY SHAPE</h2>
+        <p>Lorem ipsum content goes here for description of section</p>
+      </div>
+      <div class="buttons">
+        <button class="tab-button active" onclick="showTab('brilliant')">
+          Brilliant Cut
+        </button>
+        <button class="tab-button" onclick="showTab('old')">Old Cut</button>
+        <button class="tab-button" onclick="showTab('antique')">
+          Antique Shapes
+        </button>
+      </div>
+
+      <!-- Card Containers -->
+      <div class="card-container" id="brilliant">
+        <div class="slider">
+          <div class="slides">
+            <!-- Individual Cards -->
+            <div class="card">
+              <img src="ganpatibappa.png" alt="Round Diamond Stud" />
+              <div class="card-text">
+                <h3>Round diamond stud</h3>
+                <p class="price">
+                  <span class="old-price">$800</span>&nbsp; $400
+                  <span class="arrow">→</span>
+                </p>
+              </div>
+            </div>
+            <!-- Add more cards here -->
+          </div>
+          <!-- Navigation Arrows -->
+          <a class="prev" onclick="plusSlides(-1)">❮</a>
+          <a class="next" onclick="plusSlides(1)">❯</a>
+          <!-- Dots -->
+          <div class="dots-container">
+            <!-- Dots will be added dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <div class="card-container" id="old" style="display: none">
+        <div class="slider">
+          <div class="slides">
+            <!-- Individual Cards -->
+            <div class="card">
+              <img src="Screenshot (71).png" alt="Heart Diamond Stud" />
+              <div class="card-text">
+                <h3>Heart diamond stud</h3>
+                <p class="price">
+                  <span class="old-price">$600</span>&nbsp; $400
+                  <span class="arrow">→</span>
+                </p>
+              </div>
+            </div>
+            <!-- Add more cards here -->
+          </div>
+          <!-- Navigation Arrows -->
+          <a class="prev" onclick="plusSlides(-1)">❮</a>
+          <a class="next" onclick="plusSlides(1)">❯</a>
+          <!-- Dots -->
+          <div class="dots-container">
+            <!-- Dots will be added dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <div class="card-container" id="antique" style="display: none">
+        <div class="slider">
+          <div class="slides">
+            <!-- Individual Cards -->
+            <div class="card">
+              <img src="ganpatibappa.png" alt="Heart Diamond Stud" />
+              <div class="card-text">
+                <h3>Heart diamond stud</h3>
+                <p class="price">
+                  <span class="old-price">$600</span>&nbsp; $400
+                  <span class="arrow">→</span>
+                </p>
+              </div>
+            </div>
+            <!-- Add more cards here -->
+          </div>
+          <!-- Navigation Arrows -->
+          <a class="prev" onclick="plusSlides(-1)">❮</a>
+          <a class="next" onclick="plusSlides(1)">❯</a>
+          <!-- Dots -->
+          <div class="dots-container">
+            <!-- Dots will be added dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let slideIndex = 1;
+      let currentTab = "brilliant"; // Default tab
+
+      function showSlides(n) {
+        const slides = document.querySelectorAll(`#${currentTab} .card`);
+        const dots = document.querySelectorAll(`#${currentTab} .dot`);
+
+        if (slides.length === 0) return; // No slides to show
+
+        if (n > slides.length) {
+          slideIndex = 1;
+        }
+        if (n < 1) {
+          slideIndex = slides.length;
+        }
+
+        slides.forEach((slide) => (slide.style.display = "none"));
+        dots.forEach(
+          (dot) => (dot.className = dot.className.replace(" active", ""))
+        );
+
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+      }
+
+      function plusSlides(n) {
+        const slides = document.querySelectorAll(`#${currentTab} .card`);
+        if (slides.length > 0) {
+          showSlides((slideIndex += n));
+        }
+      }
+
+      function currentSlide(n) {
+        const slides = document.querySelectorAll(`#${currentTab} .card`);
+        if (slides.length > 0) {
+          showSlides((slideIndex = n));
+        }
+      }
+
+      function showTab(tabName) {
+        const tabcontent = document.getElementsByClassName("card-container");
+        for (let i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+
+        const tabbuttons = document.getElementsByClassName("tab-button");
+        for (let i = 0; i < tabbuttons.length; i++) {
+          tabbuttons[i].className = tabbuttons[i].className.replace(
+            " active",
+            ""
+          );
+        }
+
+        const selectedTab = document.getElementById(tabName);
+        selectedTab.style.display = "flex";
+        event.currentTarget.className += " active";
+
+        currentTab = tabName; // Update the current tab
+        slideIndex = 1; // Reset slide index for the new tab
+
+        // Add dots based on the number of slides
+        const slides = selectedTab.querySelectorAll(".card");
+        const dotsContainer = selectedTab.querySelector(".dots-container");
+        dotsContainer.innerHTML = ""; // Clear existing dots
+
+        slides.forEach((_, index) => {
+          const dot = document.createElement("span");
+          dot.className = "dot";
+          dot.onclick = () => currentSlide(index + 1);
+          dotsContainer.appendChild(dot);
+        });
+
+        showSlides(slideIndex); // Show slides for the new tab
+      }
+
+      function initializeMobileSlides() {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+
+        function handleScreenChange(e) {
+          const sliders = document.querySelectorAll(".slider");
+          if (e.matches) {
+            sliders.forEach((slider) => (slider.style.display = "block"));
+            showSlides(slideIndex); // Ensure slides are shown on mobile
+          } else {
+            sliders.forEach((slider) => (slider.style.display = "none"));
+          }
+        }
+
+        mediaQuery.addListener(handleScreenChange); // Attach listener to update on screen resize
+        handleScreenChange(mediaQuery); // Initial check
+      }
+
+      document.addEventListener("DOMContentLoaded", initializeMobileSlides);
+    </script>
+  </body>
