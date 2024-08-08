@@ -1,0 +1,529 @@
+{% schema %}
+{
+  "name": "Sub-Collection Section",
+  "settings": [
+    {
+      "type": "url",
+      "id": "common_button_link",
+      "label": "Common Button Link"
+    },
+    {
+      "type": "text",
+      "id": "common_button_text",
+      "label": "Common Button Text",
+      "default": "VIEW ALL"
+    },
+    {
+       "type": "color",
+      "id": "shape_button_background_color",
+      "label": "Shape Button Background Color",
+      "default": "#007bff"
+      
+    },
+     {
+       "type": "color",
+      "id": "shape_button_font_color",
+      "label": "Shape Button font Color",
+      "default": "#00796b"
+      
+    }
+  ],
+  "blocks": [
+    {
+      "type": "main_collection",
+      "name": "Main Collection",
+      "settings": [
+       {
+      "type": "text",
+      "id": "shape_button_text",
+      "label": "Shape Button Text",
+      "default": "Shape"
+    },
+
+       {
+          "type": "image_picker",
+          "id": "sub_collection_image_1",
+          "label": "Card Image 1"
+        },
+        {
+          "type": "text",
+          "id": "sub_collection_title_1",
+          "label": "Title 1",
+          "default": "Card Title1"
+        },
+   
+         {
+          "type": "url",
+          "id": "sub_collection_link_1",
+          "label": "Sub Collection Link 1"
+        },
+        {
+          "type": "product",
+          "id": "product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "product",
+          "id": "product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "product",
+          "id": "product_4",
+          "label": "Product 4"
+        }
+ 
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Showtab",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+
+
+{% stylesheet %}
+.sub-collection-section {
+  background-color: #ffffff;
+  text-align: center;
+      margin: 10px;
+    padding: -5px;
+    overflow: auto;
+}
+.main-collections {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+}
+.main-collection {
+  text-align: center;
+  cursor: pointer;
+}
+.main-collection img {
+  display: block;
+  margin: 0 auto;
+  height: 50px;
+  transition: transform 0.3s ease-in-out; /* Example transition effect */
+}
+
+.main-collection:hover img {
+  transform: scale(1.1); /* Example scale animation on hover */
+}
+.main-collection-title {
+  margin-top: 10px;
+  font-weight: bold;
+   transition: color 0.3s ease-in-out;
+}
+  .main-collection:hover .main-collection-title,
+.main-collection.active .main-collection-title {
+  color: #9e371e; /* Hover and active color */
+}
+.sub-collections {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  padding-bottom: 30px;
+}
+.sub-collection-group {
+  display: none;
+  position: relative;
+  justify-content: center;
+}
+.sub-collection {
+  width: 24%;
+  
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.sub-collection img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.3s ease-in-out; /* Example transition effect */
+}
+
+.sub-collection img:hover {
+  transform: rotate(3deg) scale(1.02); /* Example tilted and scaled animation on hover */
+}
+.common-button {
+  display: block;
+  text-align: center;
+  margin: 20px 0;
+}
+@media (max-width: 768px) {
+  .sub-collections {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+  }
+  .main-collections{
+    gap: 3px; !important;
+  }
+  .example::-webkit-scrollbar {
+    display: none;
+}
+
+  .sub-collection {
+    width: 100%;
+    flex: 0 0 0%;
+    padding: 10px;
+    box-sizing: border-box;
+    left: 37%;
+        position: relative;
+        padding: 60px;
+  }
+}
+  a{
+    text-decoration: none !important;
+    color: black;
+  }
+
+  /* main btn */
+            .button {
+              display: inline-block;
+              margin: 0 5px;
+              padding: 10px;
+              cursor: pointer;
+                border-radius: 8px !important;
+              border: none !important;
+              text-align: center;
+            }
+  .button:after{
+    box-shadow: none !important;
+  }
+            
+  /*end main btn  */
+/* image card start */
+   .image-card1 {
+        position: relative;
+        overflow: hidden;
+        border-radius: 35px;
+        width: 100%;
+        height: 408px;
+        margin: 10px;
+        max-width: 300px; /* Adjust max-width as needed */
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .image-card1 img {
+        width: 300px;
+        height: 408px;
+        display: block;
+      }
+
+      .card-overlay1 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.3s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: #b3d3b54a;
+      }
+
+      .image-card1:hover .card-overlay1 {
+        opacity: 1;
+      }
+
+      .overlay-content {
+        text-align: center;
+        padding: 5px;
+      }
+
+      .card-overlay1 .overlay-content1 h3{
+        margin: 0;
+        font-size: 2rem;
+        color:#ffffff;
+      }
+
+     .card-overlay1 .overlay-content1 .explore-button1 {
+        display: inline-block;
+        color: #ffffff;
+        padding: 10px 20px;
+         background-color: #5c9b6870;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+
+     .card-overlay1 .overlay-content1 .explore-button1:hover {
+        opacity: 0.8;
+        color: #ffffff;
+        background-color: green;
+      }
+  /*image card end  */
+  /*card css start  */
+     .card1 {
+        background-color: #fff;
+        border-radius: 34px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        width: 99%;
+        max-width: 300px;
+        overflow: hidden;
+        transition: transform .3s, box-shadow .3s;
+        position: relative;
+       
+      }
+  
+
+      .card1 img {
+        width: 300px;
+        height: auto;
+        border-radius: 0px !important;
+        height: 300px;
+      }
+
+      .card-text1 {
+        padding: 10px;
+      }
+
+      .card1 h3 {
+        margin: 0;
+        font-size: 1.5em;
+        font-weight: bold;
+        text-align: start;
+      }
+
+      .price1 {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 1em;
+        color: #1c656f;
+        text-align: center;
+      }
+
+      .old-price1 {
+        text-decoration: line-through;
+        color: red;
+      }
+
+      .arrow1 {
+        transition: transform .3s;
+      }
+
+      .card1:hover .arrow1 {
+        transform: translateX(150px);
+      }
+
+      .hover-card1 {
+        cursor: pointer;
+      }
+
+  /* card css end */
+  .slide-button {
+    display:none;
+  }
+  /* Hide scrollbar for sub-collections on mobile view */
+@media (max-width: 768px) {
+  .sub-collections {
+    overflow-x: auto;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+    
+  }
+
+  .sub-collections::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
+  }
+
+  .sub-collection {
+    width: 100%;
+    flex: 0 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+    left: 150%;
+  }
+
+  .image-card1, .card1 {
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* Slide buttons */
+  .slide-button {
+    display:block;
+    position: absolute;
+    top: 43%;
+    transform: translateY(-50%);
+  
+    color: #1c656f;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    padding: 10px;
+    border-radius: 50%;
+  }
+
+  .slide-button.prev {
+    left: 10px;
+  }
+
+  .slide-button.next {
+    right: 10px;
+  }
+}
+
+/* Ensuring the card contents are properly aligned */
+@media (max-width: 768px) {
+  .image-card1 img, .card1 img {
+    width: 100%;
+    height: auto;
+  }
+
+  .card-text1 {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .card1 h3 {
+    font-size: 1.2em;
+  }
+
+  .price1 {
+    justify-content: center;
+  }
+}
+
+/* Main collection button styles */
+.main-collection .button {
+  font-size: 0.9em;
+  padding: 8px;
+  width: 90%;
+  margin: 5px auto;
+}
+  
+
+{% endstylesheet %}
+
+<section class="sub-collection-section">
+  <div class="main-collections">
+    {% for block in section.blocks %}
+      <div class="main-collection" data-collection-index="{{ forloop.index }}">
+        <div class="button" style="color: {{ section.settings.shape_button_font_color }}; background-color: {{ section.settings.shape_button_background_color }};">
+          {{ block.settings.shape_button_text }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  
+  <div class="sub-collections">
+    {% for block in section.blocks %}
+      <div class="sub-collection-group" data-collection-index="{{ forloop.index }}">
+        {% for i in (1..4) %}
+          <div class="sub-collection">
+            {% assign product_id = 'product_' | append: i %}
+            {% assign product = all_products[block.settings[product_id]] %}
+            {% assign sub_collection_link = 'sub_collection_link_' | append: i %}
+            {% assign sub_collection_image = 'sub_collection_image_' | append: i %}
+            {% assign sub_collection_title = 'sub_collection_title_' | append: i %}
+            {% assign sub_collection_old_price = 'sub_collection_old_price_' | append: i %}
+            {% assign sub_collection_new_price = 'sub_collection_new_price_' | append: i %}
+            
+            <a href="{{ block.settings[sub_collection_link] }}">
+              {% if forloop.first %}
+                <!-- Only the first card uses the image-card1 class for the hover effect -->
+                <div class="image-card1">
+                  <img src="{{ block.settings[sub_collection_image] | img_url: 'original' }}" alt="{{ block.settings[sub_collection_title] }}" />
+                  <div class="card-overlay1">
+                    <div class="overlay-content1">
+                      <h3>{{ block.settings[sub_collection_title] }}</h3>
+                      <span class="explore-button1">Explore</span>
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+                <!-- The other cards use the card1 class -->
+                <div class="card1">
+                  <img src="{{ product.featured_image | img_url: '300x300' }}" alt="{{product.title}}" />
+                  <div class="card-text1">
+                    <h3>{{product.title}}</h3>
+                    <p class="price1">
+                      <span class="old-price1">{{ product.compare_at_price | money }}</span>&nbsp;{{ product.price | money }}
+                      <span class="arrow1">→</span>
+                    </p>
+                  </div>
+                </div>
+              {% endif %}
+            </a>
+          </div>
+        {% endfor %}
+        
+        <!-- Inside each sub-collection-group div -->
+        <button class="slide-button prev">‹</button>
+        <button class="slide-button next">›</button>
+      </div>
+    {% endfor %}
+  </div>
+  
+  <a href="{{ settings.common_button_link }}" class="common-button button button--primary">{{ settings.common_button_text }}</a>
+</section>
+
+{% javascript %}
+document.addEventListener('DOMContentLoaded', function() {
+  const mainCollections = document.querySelectorAll('.main-collection');
+  const subCollectionGroups = document.querySelectorAll('.sub-collection-group');
+  const slideButtons = document.querySelectorAll('.slide-button');
+
+  function showSubCollections(index) {
+    subCollectionGroups.forEach(group => {
+      if (group.dataset.collectionIndex == index) {
+        group.style.display = 'flex';
+      } else {
+        group.style.display = 'none';
+      }
+    });
+
+    mainCollections.forEach(collection => {
+      collection.classList.remove('active');
+    });
+
+    const activeCollection = document.querySelector(`.main-collection[data-collection-index="${index}"]`);
+    if (activeCollection) {
+      activeCollection.classList.add('active');
+    }
+  }
+
+  showSubCollections(1);
+
+  mainCollections.forEach((mainCollection, index) => {
+    mainCollection.addEventListener('click', () => {
+      showSubCollections(index + 1);
+    });
+
+    if (index === 0) {
+      const defaultTitle = mainCollection.querySelector('.main-collection-title');
+      if (defaultTitle) {
+        defaultTitle.style.color = '#9e371e';
+      }
+    }
+  });
+
+  slideButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const group = button.closest('.sub-collections');
+      const scrollAmount = group.offsetWidth;
+      if (button.classList.contains('prev')) {
+        group.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        group.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    });
+  });
+});
+
+{% endjavascript %}
