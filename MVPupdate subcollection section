@@ -93,7 +93,7 @@
   text-align: center;
       margin: 10px;
     padding: -5px;
-    overflow: auto;
+    /* overflow: auto; */
 }
 .main-collections {
   display: flex;
@@ -406,8 +406,66 @@
   width: 90%;
   margin: 5px auto;
 }
-  
 
+
+
+
+
+  
+  /* extra css with diff screen acording with responsive  */
+  /*pc-l responsive start  */
+  @media (max-width: 1442px) and (min-width:1026px){
+    .card1 img{
+      /* width:81px ; */
+    }
+  }
+/*pc responsive end  */
+/* pc responsive */
+   @media (max-width:1025px) and (min-width:770px){
+     .sub-collection-section{
+       margin: 27px;
+           padding: 27px 1%;
+           position: relative;
+     }
+     .sub-collections{
+           width: 100%;
+           position: relative;
+           padding: 0% 1%;
+           display: flex;
+       padding-bottom: 0px;
+     }
+     .sub-collection-group{
+       display: flex;
+           width: 100%;
+           justify-content: none;
+}
+     .image-card1{
+           display: none;
+     }
+   .sub-collection{
+         width: 100%;
+         padding: 1px;
+        }
+  }
+  /* pc responsive end */
+  /* tablet responsive */
+   @media (max-width:769px) and (min-width:427px){
+    .card1 img{
+      width:200px ;
+    }
+  }
+  /* tablet responsive end */
+   /* mobile responsive */
+   @media (max-width:426px) and (min-width:318px){
+    .card1 img{
+      width:174px ;
+    }
+  }
+  /* mobile responsive end */
+
+
+
+  
 {% endstylesheet %}
 
 <section class="sub-collection-section">
@@ -525,5 +583,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
-
 {% endjavascript %}
