@@ -174,13 +174,13 @@
       "type": "card_item",
       "name": "Card Item",
       "settings": [
-   
+
         {
           "type": "product",
           "id": "product",
           "label": "Select Product"
         }
-     
+
       ]
     }
   ],
@@ -192,27 +192,37 @@
   ]
 }
 {% endschema %}
-   <div class="gender-card-gender-contener" style="flex-direction: {{ section.settings.flex_direction }};">
+<div class="gender-card-gender-contener" style="flex-direction: {{ section.settings.flex_direction }};">
   <div class="women-norm-card-gender-contener">
     <div class="women-norm-card">
-      <img src="{{ section.settings.women_norm_card_image | img_url: 'master' }}" alt="{{ section.settings.women_norm_card_title }}" />
-      <a class="women-norm-card-data" style="background-color: {{ section.settings.women_norm_card_bg_color }} !important; color: {{ section.settings.women_norm_card_font_color }} !important;">
+      <img
+        src="{{ section.settings.women_norm_card_image | img_url: 'master' }}"
+        alt="{{ section.settings.women_norm_card_title }}"
+      >
+      <a
+        class="women-norm-card-data"
+        style="background-color: {{ section.settings.women_norm_card_bg_color }} !important; color: {{ section.settings.women_norm_card_font_color }} !important;"
+      >
         <p>{{ section.settings.women_norm_card_title }}</p>
       </a>
     </div>
   </div>
-  <div class="gender-contener swiper" data-slide-direction="{{ section.settings.slide_direction }}" data-section-id="{{ section.id }}">
+  <div
+    class="gender-contener swiper"
+    data-slide-direction="{{ section.settings.slide_direction }}"
+    data-section-id="{{ section.id }}"
+  >
     <div class="slider-wrapper slider-animation">
       <div class="pro-list swiper-animation swiper-wrapper">
         {% for block in section.blocks %}
           {% assign product = block.settings.product %}
           <a href="{{ product.url }}">
             <div class="pro-item swiper-slide">
-            <img src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.title }}" class="user-image" />
-            <img src="{{ product.images[1] | img_url: 'master' }}" alt="{{ product.title }}" class="hover-image" />
-            <h2 class="user-name">{{ product.title }}</h2>
-            <a class="message-button">Price: ${{ product.price | money }}</a>
-          </div>
+              <img src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.title }}" class="user-image">
+              <img src="{{ product.images[1] | img_url: 'master' }}" alt="{{ product.title }}" class="hover-image">
+              <h2 class="user-name">{{ product.title }}</h2>
+              <a class="message-button">Price: ${{ product.price | money }}</a>
+            </div>
           </a>
         {% endfor %}
       </div>
@@ -220,313 +230,395 @@
     </div>
   </div>
 </div>
-   <style>
+<style>
+              .gender-card-gender-contener {
+                padding: {{ section.settings.section_padding }}px;
+                margin: {{ section.settings.section_margin }}px;
+              }
 
-      
-        .gender-card-gender-contener {
-          padding: {{ section.settings.section_padding }}px;
-          margin: {{ section.settings.section_margin }}px;
-        }
-            
-      .slider-wrapper {
-        overflow: hidden;
-        max-width: 1200px;
-        margin: 12px;
-        padding: 6px;
-      }
+            .slider-wrapper {
+              overflow: hidden;
+              max-width: 1200px;
+              margin: 12px;
+              padding: 6px;
+            }
 
-      .pro-list .pro-item {
-        user-select: none;
-        color: white;
-        background-color: rgba(255, 255, 255, 0.2);
-        padding: 0px;
-        border-radius: 8px;
-        border: 1px solide rgba(255, 255, 255, 0.5);
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        flex-direction: column;
-        backdrop-filter: blur(30px);
-        border-radius: 25px;
-        width: 350px;
-        height: 350px;
-            border: 2px solid #8080803d;
-            margin-right: 20px !important;
-            width: 315.333px !important;
-      }
-      .pro-list .pro-item .user-image {
-        width: 240px;
-        height: 160px;
-        border-radius: 16px;
-        margin-bottom: 50px;
-        padding: 4px;
-      }
-        .gender-card-gender-contener {
-         display: flex;
-        }
-       
-       .gender-card-gender-contener.row {
-         flex-direction: row; /* Left to Right */
+            .pro-list .pro-item {
+              user-select: none;
+              color: white;
+              background-color: rgba(255, 255, 255, 0.2);
+              padding: 0px;
+              border-radius: 8px;
+              border: 1px solide rgba(255, 255, 255, 0.5);
+              align-items: center;
+              justify-content: center;
+              display: flex;
+              flex-direction: column;
+              backdrop-filter: blur(30px);
+              border-radius: 25px;
+              width: 350px;
+              height: 350px;
+                  border: 2px solid #8080803d;
+                  margin-right: 20px !important;
+                  width: 315.333px !important;
+            }
+            .pro-list .pro-item .user-image {
+              width: 240px;
+              height: 160px;
+              border-radius: 16px;
+              margin-bottom: 50px;
+              padding: 4px;
+            }
+              .gender-card-gender-contener {
+               display: flex;
+              }
+
+             .gender-card-gender-contener.row {
+               flex-direction: row; /* Left to Right */
+             }
+
+             .gender-card-gender-contener.row-reverse {
+               flex-direction: row-reverse; /* Right to Left */
+             }
+            /* Hover effect - full-size preview */
+            .pro-item:hover .hover-image {
+              opacity: 1;
+            }
+
+            .hover-image {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              opacity: 0;
+              transition: opacity 0.3s ease;
+              z-index: 10;
+              border-radius:18px;
+            }
+
+            .pro-list .pro-item .user-name {
+              position: absolute;
+              color: {{ section.settings.card_title_color }};
+              top: {{ section.settings.card_title_top }}%;
+              font-size: {{ section.settings.card_title_font_size }}px;
+              font-weight: {{ section.settings.card_title_font_weight }};
+            }
+
+                .pro-list .pro-item .message-button {
+                color: {{ section.settings.card_price_color }};
+                background-color: {{ section.settings.card_bg_color }};
+                top: {{ section.settings.card_price_top }}%;
+                font-size: {{ section.settings.card_price_font_size }}px;
+                font-weight: {{ section.settings.card_price_font_weight }};
+                cursor: pointer;
+                transition: 0.2 ease;
+                position: absolute;
+
+              }
+
+            .slider-wrapper .swiper-pagination-bullet {
+              background: #fff;
+              height: 15px;
+              width: 15px;
+            }
+            .slider-wrapper .swiper-pagination {
+              display: none;
+            }
+
+            .slider-wrapper .swiper-slide-button {
+              color: #fff;
+              margin-top: -50px;
+              transition: 0.2 ease;
+            }
+
+            .slider-wrapper .swiper-slide-button:hover {
+              color: blue;
+            }
+
+            @media (max-width: 768px) {
+              .women-norm-card-data{
+                 width: 100% !important;
+              }
+              .slider-wrapper {
+                margin: 0 -6px 0px;
+              }
+              .slider-wrapper .swiper-pagination {
+                display: block;
+              }
+
+              .slider-wrapper .swiper-slide-button {
+                display: none;
+              }
+              .slider-animation {
+                height: auto !important;
+              }
+              .swiper-animation {
+                top: 0;
+                height: auto !important;
+              }
+              .slide-next-custom {
+                transform: translateY(0) !important;
+              }
+            }
+
+
+            .sliderbtn-wraper .sliderbtn-view {
+              display: flex;
+              color: white;
+              background-color: green;
+              height: 45px;
+              width: auto;
+              font-size: larger;
+              border-radius: 8px;
+              padding: 10px;
+              position: relative;
+              top: -40vh;
+              left: 37vw;
+              border: none;
+            }
+
+            .women-norm-card-gender-contener {
+              height: 350px;
+              width: 350px;
+            }
+            .women-norm-card {
+              height: 301px;
+              width: 290px;
+            }
+            .women-norm-card-data {
+
+              width: 121%;
+              height: 105px;
+              position: relative;
+              transform: translateY(-109px);
+              border-radius: 0px 0px 18px 18px;
+
+              display: flex;
+              font-size: 28px;
+              align-items: center;
+              cursor: pointer;
+              justify-content: center;
+            }
+            .women-norm-card-data:hover {
+                  background-color: {{ section.settings.women_norm_card_bg_color_hover }} !important;
+                  color: {{ section.settings.women_norm_card_font_color_hover }} !important;
+                }
+            .gender-card-gender-contener {
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+            }
+            .gender-contener {
+              width: {{ section.settings.right_div_width }}% !important;
+
+            }
+            @media (max-width: 2565px) {
+              .gender-contener {
+               width: {{ section.settings.right_div_width }}% !important;
+
+
+              }
+            }
+            @media (max-width: 1440px) {
+              .gender-card-gender-contener {
+                padding: {{ section.settings.section_padding }} px !important;
+                margin: {{ section.settings.section_margin }} px !important;
+                width: 100%;
+              }
+              .gender-contener {
+                 width: {{ section.settings.right_div_width }}% !important;
+
+              }
+            }
+            @media (max-width: 1025px) {
+              .gender-contener {
+               width: {{ section.settings.right_div_width }}% !important;
+
+                padding-top: 0% !important;
+              }
+            }
+            @media (max-width: 768px) {
+              .gender-card-gender-contener {
+                position: relative;
+              }
+              .gender-contener {
+                 width: {{ section.settings.right_div_width }}% !important;
+
+                padding-top: 3% !important;
+              }
+            }
+            @media (max-width: 430px) {
+              .gender-card-gender-contener {
+                 height: 328px;
+              width: 100%;
+              left: 0 !important;
+              padding: 5px 31px !important;
+
+              }
+              .women-norm-card {
+                img {
+                  width: 100%;
+                }
+              }
+              .gender-contener {
+                width: {{ section.settings.right_div_width }}% !important;
+                padding-top: 3% !important;
+              }
+              .gender-contener {
+                display: none;
+              }
+              .women-norm-card-gender-contener {
+                height: 350px;
+                width: {{ section.settings.left_div_width }}% !important;
+                display: contents;
+              }
+            }
+            @media (max-width: 376px) {
+              .gender-contener {
+                display: none;
+              }
+              .women-norm-card {
+                height: 100%;
+                width: 100%;
+                padding: 0px !important;
+              }
+              .women-norm-card-gender-contener {
+                height: 100%;
+                 width: {{ section.settings.left_div_width }}% !important;
+
+              }
+            }
+
+
+
+            /* extra css with diff screen acording with responsive  */
+              /*pc-l responsive start  */
+       @media (max-width: 1442px) and (min-width:1026px){
+         .gender-contener{
+                   width: 100% !important;
+            margin-left: 69px;
+         }
+         .gender-card-gender-contener{
+           overflow:hidden;
+         }
        }
-       
-       .gender-card-gender-contener.row-reverse {
-         flex-direction: row-reverse; /* Right to Left */
+        /*pc responsive end  */
+              /* pc responsive */
+         @media (max-width:1025px) and (min-width:770px){
+            body{
+           margin:1;
+         }
+         }
+      /* pc responsive end */
+              /* tablet responsive */
+       @media (max-width:769px) and (min-width:427px){
+          .pro-list .pro-item{
+                height: 200px;
+        width: 201.333px !important;
+            overflow:hidden;
+          }
+         .pro-list .pro-item .message-button{
+           font-size:12px;
+         }
+         .pro-list .pro-item .user-name{
+           font-size:14px;
+               margin-left: 39px;
+    }
+         .pro-list .pro-item .user-image{
+           width:97%;
+         }
+         .women-norm-card img{
+           width:100%;
+         }
+         .women-norm-card{
+               height: 183px;
+        width: 202px;
+         }
+         .women-norm-card-data{
+                 height: 52px;
+        transform: translateY(-60px);
+               border-radius: 0px 0px 13px 13px;
+         }
+         .gender-card-gender-contener{
+           overflow:hidden;
+         }
+         .gender-card-gender-contener{
+               justify-content: center;
+      align-items: center;
+         }
+         .women-norm-card-gender-contener{
+               justify-content: center;
+      align-items: center;
+      display: flex;
+               height: 28vh;
+                   align-items: baseline;
+                       width: 264px;
+  }
+         .slider-wrapper{
+                   margin: 0 9px 0px;
+         }
        }
-      /* Hover effect - full-size preview */
-      .pro-item:hover .hover-image {
-        opacity: 1;
-      }
-      
-      .hover-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: 10;
-        border-radius:18px;
-      }
-     
-      .pro-list .pro-item .user-name {
-        position: absolute;
-        color: {{ section.settings.card_title_color }};
-        top: {{ section.settings.card_title_top }}%;
-        font-size: {{ section.settings.card_title_font_size }}px;
-        font-weight: {{ section.settings.card_title_font_weight }};
-      }
+         /* tablet responsive end */
+               /* mobile responsive */
+        @media (max-width:426px) and (min-width:340px){
+           body{
+           margin:1;
+         }
+        }
+        /* Mobile responsive end */
+            /* MobileS responsive Satrt */
+       @media (max-width:322px) and (min-width:200px){
+          body{
+           margin:1;
+         }
+       }
+      /* MobileS responsive end */
+</style>
 
-          .pro-list .pro-item .message-button {
-          color: {{ section.settings.card_price_color }};
-          background-color: {{ section.settings.card_bg_color }};
-          top: {{ section.settings.card_price_top }}%;
-          font-size: {{ section.settings.card_price_font_size }}px;
-          font-weight: {{ section.settings.card_price_font_weight }};
-          cursor: pointer;
-          transition: 0.2 ease;
-          position: absolute;
-      
-        }
-
-      .slider-wrapper .swiper-pagination-bullet {
-        background: #fff;
-        height: 15px;
-        width: 15px;
-      }
-      .slider-wrapper .swiper-pagination {
-        display: none;
-      }
-
-      .slider-wrapper .swiper-slide-button {
-        color: #fff;
-        margin-top: -50px;
-        transition: 0.2 ease;
-      }
-
-      .slider-wrapper .swiper-slide-button:hover {
-        color: blue;
-      }
-
-      @media (max-width: 768px) {
-        .women-norm-card-data{
-           width: 100% !important;
-        }
-        .slider-wrapper {
-          margin: 0 -6px 0px;
-        }
-        .slider-wrapper .swiper-pagination {
-          display: block;
-        }
-
-        .slider-wrapper .swiper-slide-button {
-          display: none;
-        }
-        .slider-animation {
-          height: auto !important;
-        }
-        .swiper-animation {
-          top: 0;
-          height: auto !important;
-        }
-        .slide-next-custom {
-          transform: translateY(0) !important;
-        }
-      }
-
-    
-      .sliderbtn-wraper .sliderbtn-view {
-        display: flex;
-        color: white;
-        background-color: green;
-        height: 45px;
-        width: auto;
-        font-size: larger;
-        border-radius: 8px;
-        padding: 10px;
-        position: relative;
-        top: -40vh;
-        left: 37vw;
-        border: none;
-      }
-      
-      .women-norm-card-gender-contener {
-        height: 350px;
-        width: 350px;
-      }
-      .women-norm-card {
-        height: 301px;
-        width: 290px;
-      }
-      .women-norm-card-data {
-       
-        width: 121%;
-        height: 105px;
-        position: relative;
-        transform: translateY(-109px);
-        border-radius: 0px 0px 18px 18px;
-    
-        display: flex;
-        font-size: 28px;
-        align-items: center;
-        cursor: pointer;
-        justify-content: center;
-      }
-      .women-norm-card-data:hover {
-            background-color: {{ section.settings.women_norm_card_bg_color_hover }} !important;
-            color: {{ section.settings.women_norm_card_font_color_hover }} !important;
-          }
-      .gender-card-gender-contener {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-      }
-      .gender-contener {
-        width: {{ section.settings.right_div_width }}% !important;
-
-      }
-      @media (max-width: 2565px) {
-        .gender-contener {
-         width: {{ section.settings.right_div_width }}% !important;
-
-         
-        }
-      }
-      @media (max-width: 1440px) {
-        .gender-card-gender-contener {
-          padding: {{ section.settings.section_padding }} px !important;
-          margin: {{ section.settings.section_margin }} px !important;
-          width: 100%;
-        }
-        .gender-contener {
-           width: {{ section.settings.right_div_width }}% !important;
-
-        }
-      }
-      @media (max-width: 1025px) {
-        .gender-contener {
-         width: {{ section.settings.right_div_width }}% !important;
-
-          padding-top: 0% !important;
-        }
-      }
-      @media (max-width: 768px) {
-        .gender-card-gender-contener {
-          position: relative;
-        }
-        .gender-contener {
-           width: {{ section.settings.right_div_width }}% !important;
-
-          padding-top: 3% !important;
-        }
-      }
-      @media (max-width: 430px) {
-        .gender-card-gender-contener {
-           height: 328px;
-        width: 100%;
-        left: 0 !important;
-        padding: 5px 31px !important;
-
-        }
-        .women-norm-card {
-          img {
-            width: 100%;
-          }
-        }
-        .gender-contener {
-          width: {{ section.settings.right_div_width }}% !important;
-          padding-top: 3% !important;
-        }
-        .gender-contener {
-          display: none;
-        }
-        .women-norm-card-gender-contener {
-          height: 350px;
-          width: {{ section.settings.left_div_width }}% !important;
-          display: contents;
-        }
-      }
-      @media (max-width: 376px) {
-        .gender-contener {
-          display: none;
-        }
-        .women-norm-card {
-          height: 100%;
-          width: 100%;
-          padding: 0px !important;
-        }
-        .women-norm-card-gender-contener {
-          height: 100%;
-           width: {{ section.settings.left_div_width }}% !important;
-
-        }
-      }
-  </style>
-     
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const swiperContainers = document.querySelectorAll(".gender-contener.swiper");
+  document.addEventListener("DOMContentLoaded", function () {
+    const swiperContainers = document.querySelectorAll(".gender-contener.swiper");
 
-  swiperContainers.forEach(container => {
-    const slideDirection = container.getAttribute("data-slide-direction");
-    const sectionId = container.getAttribute("data-section-id");
-    const reverseDirection = slideDirection === "reverse";
+    swiperContainers.forEach(container => {
+      const slideDirection = container.getAttribute("data-slide-direction");
+      const sectionId = container.getAttribute("data-section-id");
+      const reverseDirection = slideDirection === "reverse";
 
-    new Swiper(container.querySelector(".slider-wrapper"), {
-      loop: true,
-      grabCursor: true,
-      spaceBetween: 30,
-      pagination: {
-        el: container.querySelector(".swiper-pagination"),
-        clickable: true,
-        dynamicBullets: true,
-      },
-      autoplay: {
-        delay: 1200,
-        disableOnInteraction: false,
-        reverseDirection: reverseDirection
-      },
-      breakpoints: {
-        0: {
-          slidesPerView: 1,
+      new Swiper(container.querySelector(".slider-wrapper"), {
+        loop: true,
+        grabCursor: true,
+        spaceBetween: 30,
+        pagination: {
+          el: container.querySelector(".swiper-pagination"),
+          clickable: true,
+          dynamicBullets: true,
         },
-        430: {
-          slidesPerView: 1,
+        autoplay: {
+          delay: 1200,
+          disableOnInteraction: false,
+          reverseDirection: reverseDirection
         },
-        768: {
-          slidesPerView: 1,
+        breakpoints: {
+          0: {
+            slidesPerView: 1,
+          },
+          430: {
+            slidesPerView: 1,
+          },
+          768: {
+            slidesPerView: 1,
+          },
+          1025: {
+            slidesPerView: 1,
+          },
+          1440: {
+            slidesPerView: 3,
+          },
         },
-        1022: {
-          slidesPerView: 2,
-        },
-        1025: {
-          slidesPerView: 3,
-        },
-      },
+      });
     });
   });
-});
-
 </script>
