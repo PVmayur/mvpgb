@@ -2,689 +2,570 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/swiper@latest/swiper-bundle.min.css"
-/>
-<script src="https://cdn.jsdelivr.net/npm/swiper@latest/swiper-bundle.min.js"></script>
+  <meta charset="utf-8" />
+  <title>Swiper demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <style>
-        * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  <!-- Demo styles -->
+  <style>
+   html,
+body {
+  position: relative;
+  height: 100%;
 }
 
 body {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #db747a;
-    overflow: hidden;
-}
-   /* Your existing styles here */
-/* Make sure the swiper container takes up the full width of the viewport */
-.swiper-container {
-    width: 80%; /* Adjust width as needed */
-    max-width: 1200px; /* Optional: Set a maximum width for larger screens */
-    margin: 0 auto; /* Center the swiper container */
-    overflow: hidden;
+  background: #eee;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Each swiper slide should have a specific width, not full viewport */
+.content-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.swiper {
+  width: 80%; /* Adjust the width as needed */
+  max-width: 1200px; /* Optional: Limit the max width */
+  height: 400px; /* Set a fixed height for the slider */
+}
+
 .swiper-slide {
-    width: 80%; /* Adjust width as needed */
-    margin: 0 auto; /* Center the slide content */
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Ensure each card fits within the slide */
-.card {
-    width: 100%;
-    height: auto; /* Adjust based on your design */
-}
-.card {
-    position: relative;
-    width: 260px;
-    height: 320px;
-    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.014),
-        0 6.7px 5.3px rgba(0, 0, 0, 0.02),
-        0 12.5px 10px rgba(0, 0, 0, 0.025),
-        0 22.3px 17.9px rgba(0, 0, 0, 0.03),
-        0 41.8px 33.4px rgba(0, 0, 0, 0.036),
-        0 100px 80px rgba(0, 0, 0, 0.05);
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
-.card--image {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+
+    /* extra */
+
+    .card {
+            position: relative;
+            width: 260px;
+            height: 320px;
+            box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.014),
+                0 6.7px 5.3px rgba(0, 0, 0, 0.02),
+                0 12.5px 10px rgba(0, 0, 0, 0.025),
+                0 22.3px 17.9px rgba(0, 0, 0, 0.03),
+                0 41.8px 33.4px rgba(0, 0, 0, 0.036),
+                0 100px 80px rgba(0, 0, 0, 0.05);
+            transition: transform 300ms ease;
+        }
+
+        .card--image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .card--image img {
+            width: 140%;
+            height: 140%;
+            object-fit: cover;
+        }
+
+        .card--info {
+            --size: 20px;
+            width: var(--size);
+            height: var(--size);
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 2px;
+            position: absolute;
+            transition: width 550ms ease, height 550ms ease, right 550ms ease, background 550ms ease;
+            overflow: hidden;
+            box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.014),
+                0 6.7px 5.3px rgba(0, 0, 0, 0.02),
+                0 12.5px 10px rgba(0, 0, 0, 0.025),
+                0 22.3px 17.9px rgba(0, 0, 0, 0.03),
+                0 41.8px 33.4px rgba(0, 0, 0, 0.036),
+                0 100px 80px rgba(0, 0, 0, 0.05);
+        }
+
+        .card--info::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.25) 50%, transparent 100%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 550ms ease;
+        }
+
+        .card--info.info--1 {
+            bottom: 47%;
+            right: 80%;
+        }
+
+        .card--info.info--2 {
+            bottom: 25%;
+            right: 15%;
+        }
+
+        .icon {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon ion-icon {
+            color: white;
+        }
+
+        .info--text {
+            display: block;
+            position: absolute;
+            left: 10%;
+            bottom: 5%;
+            font-size: 0.55rem;
+            letter-spacing: 1px;
+            font-family: "Montserrat", sans-serif;
+            font-weight: bold;
+            color: #fff;
+            white-space: nowrap;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(25%);
+            transition: opacity 250ms ease, transform 250ms ease;
+        }
+
+        .info--image {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .info--image img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 550ms ease;
+        }
+
+        .card:hover .card--info {
+            --size: 100px;
+        }
+
+        .card:hover .card--info::after {
+            opacity: 1;
+        }
+
+        .card:hover .card--info.info--1 {
+            right: 71%;
+            transition-delay: 100ms;
+        }
+
+        .card:hover .card--info.info--2 {
+            right: -10%;
+        }
+
+        .card:hover .info--image img {
+            opacity: 1;
+        }
+
+        .card:hover .info--text {
+            transition-delay: 550ms;
+            opacity: 1;
+            transform: translateY(0%);
+        }
+
+    
+        
+
+        .support {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            padding: 10px;
+            display: flex;
+        }
+
+        .support a {
+            margin: 0 10px;
+            color: #fff;
+            font-size: 1.8rem;
+            backface-visibility: hidden;
+            transition: all 150ms ease;
+        }
+
+        .support a:hover {
+            transform: scale(1.1);
+        }
+
+        /* extra */
+        @media only screen and (max-width: 767px) {
+    .card--info {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .swiper-slide-active .card--info {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.card--image img {
-    width: 140%;
-    height: 140%;
-    object-fit: cover;
-}
-
-.card--info {
-    --size: 20px;
-    width: var(--size);
-    height: var(--size);
-    background: rgba(0, 0, 0, 0.75);
-    border-radius: 2px;
-    position: absolute;
-    transition: width 550ms ease, height 550ms ease, right 550ms ease, background 550ms ease;
-    overflow: hidden;
-    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.014),
-        0 6.7px 5.3px rgba(0, 0, 0, 0.02),
-        0 12.5px 10px rgba(0, 0, 0, 0.025),
-        0 22.3px 17.9px rgba(0, 0, 0, 0.03),
-        0 41.8px 33.4px rgba(0, 0, 0, 0.036),
-        0 100px 80px rgba(0, 0, 0, 0.05);
-}
-
-.card--info::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.25) 50%, transparent 100%);
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 550ms ease;
-}
-
-.card--info.info--1 {
-    bottom: 47%;
-    right: 80%;
-}
-
-.card--info.info--2 {
-    bottom: 25%;
-    right: 15%;
-}
-
-.icon {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.icon ion-icon {
-    color: white;
-}
-
-.info--text {
-    display: block;
-    position: absolute;
-    left: 10%;
-    bottom: 5%;
-    font-size: 0.55rem;
-    letter-spacing: 1px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: bold;
-    color: #fff;
-    white-space: nowrap;
-    z-index: 2;
-    opacity: 0;
-    transform: translateY(25%);
-    transition: opacity 250ms ease, transform 250ms ease;
-}
-
-.info--image {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-.info--image img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 550ms ease;
-}
-
-.card:hover .card--info {
-    --size: 100px;
-}
-
-.card:hover .card--info::after {
-    opacity: 1;
-}
-
-.card:hover .card--info.info--1 {
-    right: 71%;
-    transition-delay: 100ms;
-}
-
-.card:hover .card--info.info--2 {
-    right: -10%;
-}
-
-.card:hover .info--image img {
-    opacity: 1;
-}
-
-.card:hover .info--text {
-    transition-delay: 550ms;
-    opacity: 1;
-    transform: translateY(0%);
-}
-
-.support {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    padding: 10px;
-    display: flex;
-}
-
-.support a {
-    margin: 0 10px;
-    color: #fff;
-    font-size: 1.8rem;
-    backface-visibility: hidden;
-    transition: all 150ms ease;
-}
-
-.support a:hover {
-    transform: scale(1.1);
-}
-
-/*  */
-    </style>
+  </style>
 </head>
 
 <body>
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <!-- Slide 1 -->
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Slide 2 -->
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="card" onclick="toggleCard(this)">
-                    <div class="card--image">
-                        <img src="cards/blog/Katerina-Perez-jewelry-blog-instagram.webp" alt="image">
-                    </div>
-                    <a href="#">
-                        <div class="card--info info--1">
-                            <span class="info--text">Diamond Stud</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/11.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="card--info info--2">
-                            <span class="info--text">ACCESSIBLE</span>
-                            <div class="icon">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                            <div class="info--image">
-                                <img src="cards/10.png" alt="info image">
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <!-- Add more slides as needed -->
+<div class="content-box">
+      <!-- Swiper -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">   
+        <div class="card">
+        <div class="card--image">
+            <img src="tom-jerry--15916.jpg" alt="image">
         </div>
+        <a href="#">
+            <div class="card--info info--1">
+                <span class="info--text">Diamond Stud</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+        <a href="#">
+            <div class="card--info info--2">
+                <span class="info--text">ACCESSIBLE</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+    </div></div>
+      <div class="swiper-slide">        <div class="card">
+        <div class="card--image">
+            <img src="tom-jerry--15916.jpg" alt="image">
+        </div>
+        <a href="#">
+            <div class="card--info info--1">
+                <span class="info--text">Diamond Stud</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+        <a href="#">
+            <div class="card--info info--2">
+                <span class="info--text">ACCESSIBLE</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+    </div></div>
+      <div class="swiper-slide">        <div class="card">
+        <div class="card--image">
+            <img src="tom-jerry--15916.jpg" alt="image">
+        </div>
+        <a href="#">
+            <div class="card--info info--1">
+                <span class="info--text">Diamond Stud</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+        <a href="#">
+            <div class="card--info info--2">
+                <span class="info--text">ACCESSIBLE</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+    </div></div>
+      <div class="swiper-slide">        <div class="card">
+        <div class="card--image">
+            <img src="tom-jerry--15916.jpg" alt="image">
+        </div>
+        <a href="#">
+            <div class="card--info info--1">
+                <span class="info--text">Diamond Stud</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+        <a href="#">
+            <div class="card--info info--2">
+                <span class="info--text">ACCESSIBLE</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+    </div></div>
+      <div class="swiper-slide">        <div class="card">
+        <div class="card--image">
+            <img src="tom-jerry--15916.jpg" alt="image">
+        </div>
+        <a href="#">
+            <div class="card--info info--1">
+                <span class="info--text">Diamond Stud</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+        <a href="#">
+            <div class="card--info info--2">
+                <span class="info--text">ACCESSIBLE</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+    </div></div>
+      <div class="swiper-slide">        <div class="card">
+        <div class="card--image">
+            <img src="tom-jerry--15916.jpg" alt="image">
+        </div>
+        <a href="#">
+            <div class="card--info info--1">
+                <span class="info--text">Diamond Stud</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+        <a href="#">
+            <div class="card--info info--2">
+                <span class="info--text">ACCESSIBLE</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+    </div></div>
+      <div class="swiper-slide">        <div class="card">
+        <div class="card--image">
+            <img src="tom-jerry--15916.jpg" alt="image">
+        </div>
+        <a href="#">
+            <div class="card--info info--1">
+                <span class="info--text">Diamond Stud</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+        <a href="#">
+            <div class="card--info info--2">
+                <span class="info--text">ACCESSIBLE</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+    </div></div>
+      <div class="swiper-slide">        <div class="card">
+        <div class="card--image">
+            <img src="tom-jerry--15916.jpg" alt="image">
+        </div>
+        <a href="#">
+            <div class="card--info info--1">
+                <span class="info--text">Diamond Stud</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+        <a href="#">
+            <div class="card--info info--2">
+                <span class="info--text">ACCESSIBLE</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+    </div></div>
+      <div class="swiper-slide">        <div class="card">
+        <div class="card--image">
+            <img src="tom-jerry--15916.jpg" alt="image">
+        </div>
+        <a href="#">
+            <div class="card--info info--1">
+                <span class="info--text">Diamond Stud</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+        <a href="#">
+            <div class="card--info info--2">
+                <span class="info--text">ACCESSIBLE</span>
+                <div class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </div>
+                <div class="info--image">
+                    <img src="mvp.jpg" alt="info image">
+                </div>
+            </div>
+        </a>
+    </div></div>
     </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+  </div>
+</div>
 
-    <!-- Swiper JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        const swiper = new Swiper('.swiper-container', {
-            slidesPerView: 1,
-            spaceBetween: 10,
-            loop: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
-    </script>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <script>
-        function toggleCard(card) {
-            card.classList.toggle("open");
+  <!-- Initialize Swiper -->
+  <script>
+ document.addEventListener('DOMContentLoaded', function() {
+    var swiper = new Swiper('.swiper', {
+        slidesPerView: 3,
+        spaceBetween: 10,
+        loop: true,
+        autoplay: {
+            delay: 1000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 5,
+                on: {
+                    slideChangeTransitionStart: function () {
+                        let activeSlide = document.querySelector('.swiper-slide-active');
+                        let infoElements = activeSlide.querySelectorAll('.card--info');
+                        infoElements.forEach(element => {
+                            element.style.opacity = '1';
+                            element.style.transform = 'translateY(0)';
+                        });
+                    },
+                    slideChangeTransitionEnd: function () {
+                        let slides = document.querySelectorAll('.swiper-slide');
+                        slides.forEach(slide => {
+                            if (!slide.classList.contains('swiper-slide-active')) {
+                                let infoElements = slide.querySelectorAll('.card--info');
+                                infoElements.forEach(element => {
+                                    element.style.opacity = '0';
+                                    element.style.transform = 'translateY(20px)';
+                                });
+                            }
+                        });
+                    }
+                }
+            },
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 10
+            },
+            1024: {
+                slidesPerView: 3,
+                spaceBetween: 15
+            }
         }
-    </script>
+    });
+});
+
+  </script>
 </body>
 
 </html>
- 
