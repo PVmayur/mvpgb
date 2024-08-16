@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* Basic page content styling */
+    #loader {
+        height: 100%;
+        width: 100%;
+        background-color: #000;
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        transition: all ease 0.7s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #loader h1 {
+        font-size: 4vw;
+        color: transparent;
+        background: linear-gradient(to right, rgb(0, 255, 64), rgb(255, 0, 0));
+        -webkit-background-clip: text;
+        position: absolute;
+        opacity: 0;
+        animation-name: load;
+        animation-duration: 1s;
+        animation-delay: 1s;
+        animation-timing-function: linear;
+    }
+
+    #loader h1:nth-child(2) {
+        animation-delay: 2s;
+    }
+
+    #loader h1:nth-child(3) {
+        animation-delay: 3s;
+    }
+
+    @keyframes load {
+        0% {
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @media (max-width: 600px) {
+        #loader h1 {
+            font-size: 9vw;
+        }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader element -->
+  <div id="loader">
+    <h1>ENVIRONMENTS</h1>
+    <h1>EXPERIENCES</h1>
+    <h1>CONTENT</h1>
+  </div>
+
+  <!-- Main content -->
+  <div id="content" style="display: none;">
+    <h1>Main Website Content</h1>
+    <!-- Rest of your page content goes here -->
+  </div>
+
+  <script>
+    function menuAnimation() {
+        var menu = document.querySelector("nav h3");
+        var full = document.querySelector("#full-scr");
+        var navimg = document.querySelector("nav img");
+        var flag = 0;
+
+        menu.addEventListener("click", function () {
+            if (flag == 0) {
+                full.style.top = 0;
+                navimg.style.opacity = 0;
+                flag = 1;
+            } else {
+                full.style.top = "-100%";
+                navimg.style.opacity = 1;
+                flag = 0;
+            }
+        });
+    }
+
+    function loaderAnimation() {
+        var loader = document.querySelector("#loader");
+        var content = document.querySelector("#content");
+
+        // Start hiding loader after 4.2 seconds
+        setTimeout(function () {
+            loader.style.top = "-100%";  // Slide loader out
+            setTimeout(function () {
+                loader.style.display = "none";  // Fully remove loader from view
+                content.style.display = "block";  // Show main content
+            }, 700); // Wait for the transition to finish
+        }, 4200);
+    }
+
+    window.onload = function() {
+        loaderAnimation(); // Start loader animation after window loads
+        menuAnimation(); // Initialize menu functionality
+    };
+  </script>
+</body>
+</html>
