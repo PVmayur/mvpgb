@@ -1,0 +1,529 @@
+{% schema %}
+{
+  "name": "Ring Style",
+  "settings": [
+
+      {
+       "type": "color",
+      "id": "main_section_background",
+      "label": "main_section_background",
+      "default": "#F8F8F8"
+
+    },
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Main Heading",
+      "default": "Our Ring Styles"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Explore our beautiful collection of rings."
+    },
+      {
+      "type": "color",
+      "id": "main_heading_color",
+      "label": "Main Heading Color",
+      "default": "#000000"
+    },
+     {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Learn More"
+    },
+      {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Click Me"
+    },
+        {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL",
+
+        },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Font Color",
+      "default": "#ffffff",
+      "info": "Choose the color for all text within the hero content wrapper."
+    },
+    {
+      "type": "range",
+      "id": "button_padding",
+      "label": "Button Padding (px)",
+      "default": 14,
+      "min": 0,
+      "max": 50
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button Border Radius (px)",
+      "default": 7,
+      "min": 0,
+      "max": 50
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "View Collection"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shivam",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+<section id="ring-style-slider">
+  <div class="ring-slider-container">
+    <div class="ring-slider-section-header">
+      <h2 class="maintitle" style="color: {{ section.settings.main_heading_color }}">
+        {{ section.settings.main_heading }}
+      </h2>
+      <p class="maindiscription" style="color: {{ section.settings.main_heading_color }}">
+        {{ section.settings.description }}
+      </p>
+    </div>
+    <div class="ring-slider-slider-container">
+      <button class="ring-slider-prev sliderbtn" data-prev>&#10094;</button>
+      <div class="ring-slider-slider" data-slider>
+        {% for block in section.blocks %}
+          <div class="ring-slider-slidus" data-slide>
+            <div class="ring-slider-collection-card">
+              <img
+                class="ring-slider-card-img"
+                src="{{ block.settings.image | img_url: '400x400' }}"
+                alt="{{ block.settings.title }}"
+              >
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <button class="ring-slider-next sliderbtn" data-next>&#10095;</button>
+    </div>
+    <div class="ring-slider-content-container" data-content-container>
+      {% for block in section.blocks %}
+        <div class="ring-slider-content-slide" data-content-slide>
+          <h3 class="ring-slider-card-title" style="color: {{ section.settings.title_color }}">
+            {{ block.settings.title }}
+          </h3>
+          <p class="ring-slider-card-description" style="color: {{ section.settings.title_color }}">
+            {{ block.settings.description }}
+          </p>
+          {% render 'blob-button', button_text: section.settings.button_text, button_url: section.settings.button_url %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .maintitle {
+    font-size: clamp(40px, 4vw + 1rem, 71px) !important;
+    height: 20px;
+  }
+
+  .maindiscription {
+    font-size: clamp(13px, 1vw + 1rem, 21px) !important;
+    height: 20px;
+  }
+
+  .ring-slider-container {
+    background: {{ section.settings.main_section_background }};
+  }
+
+  /* ring slider */
+  #ring-style-slider .ring-slider-container {
+    width: 100%;
+    height: 85vh;
+  }
+
+  .ring-slider-section-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-top: 1px;
+  }
+
+  .ring-slider-slider-container {
+    position: relative;
+    height: 404px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ring-slider-slider {
+    display: flex;
+    top: 61px;
+    position: relative;
+    transition: transform 0.5s ease;
+    will-change: transform;
+  }
+
+  .ring-slider-slidus {
+    flex: 0 0 20%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    transition: transform 0.5s;
+  }
+
+  .ring-slider-collection-card {
+    text-align: center;
+    padding: 2px;
+  }
+
+  .ring-slider-collection-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 18px;
+    transition: transform 0.5s ease;
+  }
+
+  .ring-slider-prev,
+  .ring-slider-next {
+    position: absolute;
+    top: 58%;
+    transform: translateY(-50%);
+    color: #34bd42;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .ring-slider-prev {
+    left: 10px;
+  }
+
+  .ring-slider-next {
+    right: 10px;
+  }
+
+  .ring-slider-content-container {
+    text-align: center;
+    margin-bottom: -66px;
+    margin-top: 93px;
+    height: 0px;
+    display: flex;
+    justify-content: center;
+    transition: transform 0.5s ease;
+    padding: 10px;
+  }
+
+  .ring-slider-content-slide {
+    display: none;
+    position: relative;
+    transform: translateY(-255px);
+  }
+
+  .ring-slider-card-description {
+    position: relative;
+    text-transform: uppercase;
+    height: 20px;
+    top: -45px;
+    width: auto;
+    padding: 2px;
+    border-radius: 5px;
+  }
+
+  .ring-slider-card-title {
+    font-size: calc(var(--font-heading-scale) * 1.8rem);
+    text-transform: uppercase;
+    position: relative;
+    top: -24px;
+    color: white;
+    font-size: x-large;
+  }
+
+  .ring-slider-content-slide.active {
+    display: block;
+  }
+
+  .ring-slider-slidus.center .ring-slider-card-img {
+    transform: translateY(-100px);
+  }
+
+  .ring-slider-card-img {
+    transition: transform 0.5s;
+  }
+
+  .ring-slider-btn {
+    padding: 10px;
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .ring-slider-btn:hover {
+    background-color: transparent;
+    color: black;
+    border: 1px solid black;
+  }
+
+  @media (max-width: 767px) {
+    .ring-slider-slidus {
+      flex: 0 0 100%;
+    }
+
+    .ring-slider-collection-card img {
+      max-width: 80%;
+    }
+
+    .ring-slider-content-container {
+      margin-bottom: -23%;
+      margin-top: 34px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .ring-slider-slidus {
+      flex: 0 0 33.3333%; /* Show 3 cards */
+    }
+  }
+
+  @media (max-width: 1442px) and (min-width: 1026px) {
+    .ring-slider-slidus {
+      flex: 0 0 20%; /* Show 5 cards */
+    }
+
+    #ring-style-slider .ring-slider-container {
+      height: 65vh;
+    }
+  }
+
+  @media (max-width: 1025px) and (min-width: 770px) {
+    .ring-slider-slidus {
+      flex: 0 0 33.3333%; /* Show 3 cards */
+    }
+
+    #ring-style-slider .ring-slider-container {
+      height: 73vh;
+    }
+  }
+
+  @media (max-width: 769px) and (min-width: 427px) {
+    .ring-slider-slidus {
+      flex: 0 0 33.3333%; /* Show 3 cards */
+    }
+
+    #ring-style-slider .ring-slider-container {
+      height: 92vh;
+    }
+  }
+
+  @media (max-width: 426px) and (min-width: 340px) {
+    .ring-slider-slidus {
+      flex: 0 0 55%; /* Show 1 card */
+      position: relative;
+    }
+
+    .ring-slider-collection-card img {
+      max-width: 95%;
+    }
+
+    .ring-slider-content-container {
+      margin-top: 34px;
+    }
+
+    .ring-slider-prev,
+    .ring-slider-next {
+      top: 37%;
+    }
+
+    #ring-style-slider .ring-slider-container {
+      height: 78vh;
+    }
+  }
+
+  @media (max-width: 322px) and (min-width: 200px) {
+    #ring-style-slider .ring-slider-container {
+      height: 78vh;
+    }
+
+    .ring-slider-prev,
+    .ring-slider-next {
+      top: 36%;
+    }
+  }
+
+  .global-btn {
+    background: {{ section.settings.button_background_color }};
+    color: {{ section.settings.button_text_color }};
+    padding: {{ section.settings.button_padding }}px;
+    border-radius: {{ section.settings.button_border_radius }}px;
+  }
+
+  .global-btn:hover {
+    background: {{ section.settings.button_hover_background_color }};
+    color: {{ section.settings.button_hover_text_color }};
+  }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const slider = document.querySelector('[data-slider]');
+    const slides = Array.from(document.querySelectorAll('[data-slide]'));
+    const contentSlides = document.querySelectorAll('[data-content-slide]');
+    const prevBtn = document.querySelector('[data-prev]');
+    const nextBtn = document.querySelector('[data-next]');
+    const totalSlides = slides.length;
+    let currentIndex = totalSlides;
+
+    let isAnimating = false;
+
+    function disableButtons() {
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+    }
+
+    function enableButtons() {
+      prevBtn.disabled = false;
+      nextBtn.disabled = false;
+    }
+
+    // Append clones to achieve infinite looping effect
+    slides.forEach(slide => {
+      slider.appendChild(slide.cloneNode(true));
+      slider.insertBefore(slide.cloneNode(true), slides[0]);
+    });
+
+    function getSlidesToShow() {
+      if (window.innerWidth >= 1440) {
+        return 5;
+      } else if (window.innerWidth >= 900) {
+        return 3;
+      } else if (window.innerWidth >= 450) {
+        return 3;
+      } else {
+        return 1; // For smaller screens show 1 slide
+      }
+    }
+
+    function updateSlides() {
+      const slidesToShow = getSlidesToShow();
+      const slideWidth = slides[0].clientWidth;
+
+      const offset = -currentIndex * slideWidth + (slider.clientWidth - slideWidth) / 2;
+      slider.style.transform = 'translateX(' + offset + 'px)';
+      contentSlides.forEach((contentSlide, i) => {
+        contentSlide.classList.remove('active');
+        if (i === currentIndex % totalSlides) {
+          contentSlide.classList.add('active');
+        }
+      });
+      const allSlides = document.querySelectorAll('[data-slide]');
+      allSlides.forEach((slide, i) => {
+        slide.classList.remove('center');
+        slide.querySelector('.ring-slider-card-img').style.transform = 'scale(1)';
+        if (i === currentIndex) {
+          slide.classList.add('center');
+          slide.querySelector('.ring-slider-card-img').style.transform = 'translateY(-50px)';
+        }
+      });
+    }
+
+    function nextSlide() {
+      if (isAnimating) return;
+      isAnimating = true;
+      disableButtons();
+      currentIndex++;
+      updateSlides();
+      if (currentIndex >= totalSlides * 2) {
+        setTimeout(() => {
+          slider.style.transition = 'none';
+          currentIndex = totalSlides;
+          updateSlides();
+          setTimeout(() => {
+            slider.style.transition = 'transform 0.5s ease';
+            isAnimating = false;
+            enableButtons();
+          }, 50);
+        }, 500);
+      } else {
+        setTimeout(() => {
+          isAnimating = false;
+          enableButtons();
+        }, 500);
+      }
+    }
+
+    function prevSlide() {
+      if (isAnimating) return;
+      isAnimating = true;
+      disableButtons();
+      currentIndex--;
+      updateSlides();
+      if (currentIndex < totalSlides) {
+        setTimeout(() => {
+          slider.style.transition = 'none';
+          currentIndex = totalSlides * 2 - 2;
+          updateSlides();
+          setTimeout(() => {
+            slider.style.transition = 'transform 0.5s ease';
+            isAnimating = false;
+            enableButtons();
+          }, 50);
+        }, 500);
+      } else {
+        setTimeout(() => {
+          isAnimating = false;
+          enableButtons();
+        }, 500);
+      }
+    }
+
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    updateSlides();
+
+    let intervalId = setInterval(nextSlide, 2000);
+
+    slider.addEventListener('mouseover', function() {
+      clearInterval(intervalId);
+    });
+
+    slider.addEventListener('mouseout', function() {
+      intervalId = setInterval(nextSlide, 2000);
+    });
+  });
+</script>
