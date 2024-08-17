@@ -1,0 +1,123 @@
+  <!-- Loader element -->
+    <div id="loader">
+      <h1>ENVIRONMENTS</h1>
+      <h1>EXPERIENCES</h1>
+      <h1>CONTENT</h1>
+    </div>
+
+
+
+ <!-- mvp javascript for loader starte -->
+    <script>
+           function menuAnimation() {
+          var menu = document.querySelector("nav h3");
+          var full = document.querySelector("#full-scr");
+          var navimg = document.querySelector("nav img");
+          var flag = 0;
+
+          menu.addEventListener("click", function () {
+              if (flag == 0) {
+                  full.style.top = 0;
+                  navimg.style.opacity = 0;
+                  flag = 1;
+              } else {
+                  full.style.top = "-100%";
+                  navimg.style.opacity = 1;
+                  flag = 0;
+              }
+          });
+      }
+
+      function loaderAnimation() {
+          var loader = document.querySelector("#loader");
+          var content = document.querySelector("#content");
+          var isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html'; // Adjust path if needed
+
+          // Check if loader has been shown before in this session
+          if (sessionStorage.getItem('loaderShown')) {
+              loader.style.display = 'none';
+              content.style.display = 'block';
+          } else {
+              // Show loader animation for the first visit
+              sessionStorage.setItem('loaderShown', 'true');
+              loader.style.display = 'block';
+              setTimeout(function () {
+                  loader.style.top = "-100%";  // Slide loader out
+                  setTimeout(function () {
+                      loader.style.display = 'none';  // Fully remove loader from view
+                      content.style.display = 'block';  // Show main content
+                  }, 700); // Wait for the transition to finish
+              }, 4200);
+          }
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+          loaderAnimation(); // Start loader animation after content is fully loaded
+          menuAnimation(); // Initialize menu functionality
+      });
+    </script>
+    <!-- mvp javascript for loader end -->
+
+
+
+
+/*loader css start  */
+    /* Basic page content styling */
+    #loader {
+        height: 100%;
+        width: 100%;
+        background-color: #ffffff;
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        transition: all ease 0.7s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      text-align:center;
+    }
+    #loader h1 {
+        font-size: 4vw;
+        color: transparent;
+        background: linear-gradient(to right, rgb(0, 255, 64), rgb(255, 0, 0));
+        -webkit-background-clip: text;
+        position: absolute;
+        opacity: 0;
+        animation-name: load;
+        animation-duration: 1s;
+        animation-delay: 1s;
+        text-align:center;
+        animation-timing-function: linear;
+      justify-content:center;
+      align-content:center;
+    }
+
+    #loader h1:nth-child(2) {
+        animation-delay: 2s;
+    }
+
+    #loader h1:nth-child(3) {
+        animation-delay: 3s;
+    }
+
+    @keyframes load {
+        0% {
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @media (max-width: 600px) {
+        #loader h1 {
+            font-size: 9vw;
+        }
+    }
+/*loader css end  */
