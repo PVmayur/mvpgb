@@ -1,0 +1,259 @@
+{% schema %}
+{
+  "name": "Srolldiv",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main Image"
+    },
+    {
+      "type": "text",
+      "id": "main_text",
+      "label": "Main Text",
+      "default": "Jewelry is our passion. This beautiful piece is crafted with love and care."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text 1",
+      "default": "Jewelry is our passion. This beautiful piece is crafted with love and care."
+    },
+    {
+      "type": "url",
+      "id": "url_1",
+      "label": "URL 1",
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text 2",
+      "default": "This stunning bracelet is designed to bring elegance to your outfit."
+    },
+    {
+      "type": "url",
+      "id": "url_2",
+      "label": "URL 2",
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Text 3",
+      "default": "Our earrings collection is perfect for all occasions. Shine with style!"
+    },
+    {
+      "type": "url",
+      "id": "url_3",
+      "label": "URL 3",
+    }
+  ],
+  "presets": [
+    {
+      "name": "scrolldiv"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="mvpmaincon">
+  <h2 class="maintitlepart">Main Part</h2>
+  <div class="containerzz">
+    <!-- A Div -->
+    <div class="a-div">
+      <img class="a-divimg" src="{{ section.settings.main_image | img_url: 'master' }}" alt="Main Jewelry Image">
+      <p>{{ section.settings.main_text }}</p>
+    </div>
+
+    <!-- B Div -->
+    <div class="b-div">
+      <!-- First Child Div -->
+      <div class="child-div">
+        <img src="{{ section.settings.image_1 | img_url: 'master' }}" alt="Jewelry Image 1">
+        <div class="linkurl">
+          <p>{{ section.settings.text_1 }}</p>
+          <a href="{{ section.settings.url_1 }}">Read more</a>
+        </div>
+      </div>
+
+      <!-- Second Child Div -->
+      <div class="child-div">
+        <img src="{{ section.settings.image_2 | img_url: 'master' }}" alt="Jewelry Image 2">
+        <div class="linkurl">
+          <p>{{ section.settings.text_2 }}</p>
+          <a href="{{ section.settings.url_2 }}">Read more</a>
+        </div>
+      </div>
+
+      <!-- Third Child Div -->
+      <div class="child-div">
+        <img src="{{ section.settings.image_3 | img_url: 'master' }}" alt="Jewelry Image 3">
+        <div class="linkurl">
+          <p>{{ section.settings.text_3 }}</p>
+          <a href="{{ section.settings.url_3 }}">Read more</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Basic reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  /* Main containerzz */
+  .containerzz {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+  }
+
+  /* A Div (Video section) */
+  .a-div {
+    position: sticky;
+    top: 0;
+    width: 50%;
+    background-color: #f0f0f0;
+    padding: 10px;
+  }
+
+  .a-div img {
+    width: 100%;
+    height: auto;
+  }
+
+  .a-div p {
+    position: absolute;
+    color: white;
+    top: 36%;
+    padding: 14%;
+    height: auto;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.4;
+    max-width: 90%;
+    margin: 0 auto;
+    word-wrap: break-word; /* Ensure text wraps properly */
+  }
+
+  /* B Div (Scrollable content) */
+  .b-div {
+    width: 50%;
+    overflow-y: scroll;
+    height: 100vh;
+    padding: 20px;
+  }
+
+  /* Child divs inside B Div */
+  .child-div {
+    margin-bottom: 30px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .child-div img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    height: 14vw;
+  }
+
+  .linkurl {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 20px 10px;
+    text-align: center;
+    word-wrap: break-word; /* Ensure text wraps within the container */
+    font-size: 1em; /* Standard font size */
+    line-height: 1.5; /* Improves readability */
+  }
+
+  /* Responsive design */
+  @media (max-width: 769px) {
+    .containerzz {
+      display: block;
+      height: auto;
+    }
+
+    .a-div, .b-div {
+      width: 100%;
+    }
+
+    .a-div p {
+      top: 33% !important;
+      padding: 10%;
+      font-size: 1.2em;
+    }
+
+    .b-div {
+      overflow-y: visible;
+    }
+
+    .child-div img {
+      height: auto;
+    }
+  }
+
+  /* Hide scrollbar in Firefox and IE/Edge */
+  .b-div {
+    white-space: nowrap;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .maintitlepart {
+    height: 100px;
+    width: 100%;
+    font-size: xx-large;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 10px;
+  }
+
+  .linkurl {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 20px 10px;
+    text-align: center;
+    word-wrap: break-word; /* Ensures the text wraps within the container */
+    font-size: 1em; /* Standard font size */
+    line-height: 1.5; /* Improves readability */
+  }
+
+  @media (max-width: 769px) {
+    .linkurl {
+      max-width: 100%;  /* Allow the container to use full width on small screens */
+      padding: 15px;  /* Adjust padding for smaller screens */
+      font-size: 0.9em; /* Slightly reduce font size on smaller screens */
+    }
+  }
+</style>
