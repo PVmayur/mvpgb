@@ -1,0 +1,659 @@
+{% schema %}
+{
+  "name": "Changecollection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Best Sellers"
+    },
+    {
+        "type": "color",
+        "id": "primary_color",
+        "label": "Primary Color",
+        "default": "#f09"
+      },
+    {
+        "type": "color",
+        "id": "secondary_color",
+        "label": "Text color",
+        "default": "#ffffff"
+      },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "default": 20,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "default": 20,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "default": 20,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "default": 20,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_list",
+      "name": "Product List",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Block Title",
+          "default": "Block Title"
+        },
+        {
+          "type": "product",
+          "id": "product1",
+          "label": "Select Product 1"
+        },
+        {
+          "type": "product",
+          "id": "product2",
+          "label": "Select Product 2"
+        },
+        {
+          "type": "product",
+          "id": "product3",
+          "label": "Select Product 3"
+        },
+        {
+          "type": "product",
+          "id": "product4",
+          "label": "Select Product 4"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "changecollection",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="magik-main-container" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;">
+    <!-- Suba Div -->
+    <div class="magik-suba">
+        <!-- First Child Div - Main Title -->
+        <div class="magik-title">
+            <h2>{{ section.settings.title }}</h2>
+        </div>
+
+        <!-- Second Child Div - Category List -->
+        <div class="magik-category-list">
+            <ul class="magik-categories">
+                {% for block in section.blocks %}
+                    <li data-category="{{ block.id }}" class="magik-category {% if forloop.first %}active{% endif %}">{{ block.settings.block_title }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Subb Div - Cards Container -->
+    <div class="magik-subb">
+        {% for block in section.blocks %}
+            <!-- Product Container -->
+            <div class="magik-cards-collection {{ block.id }} {% if forloop.first %}active{% endif %}">
+                {% assign product_handles = "product1,product2,product3,product4" | split: "," %}
+                {% for handle in product_handles %}
+                    {% assign product_handle = block.settings[handle] %}
+                    {% assign product = all_products[product_handle] %}
+                    {% if product %}
+                        <div class="magik-card">
+                            <div class="magik-card-image">
+                                <img class="imges1" src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.title }}">
+                                 <img class="imges2" src="{{ product.images[1] | img_url: 'master' }}" alt="{{ product.title }}">
+                            </div>
+                            <div class="magik-card-text">
+                                <h3>{{ product.title }}</h3>
+                                <p class="magik-price">{{ product.price | money }}</p>
+                                   <form action="/cart/add" method="post" class="add-to-cart-form">
+                                    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                                    <button type="submit" class="magik-add-to-cart">Add to Cart</button>
+                                  </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <!-- Add more product cards if needed -->
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<style>
+  
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body.index .custom-product-tab .pr-title-and-tab ul li:not(:first-child)::after {
+    content: "";
+    position: absolute;
+    left: -2px;
+    top: 0;
+    background: #000;
+    height: 16px;
+    width: 2px;
+    margin: auto;
+    bottom: 0;
+}
+/* Main Container */
+.magik-main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Suba (Title and Categories) */
+.magik-suba {
+    text-align: center; 
+    margin-bottom: 20px;
+}
+
+.magik-title h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    padding-left: 17px;
+    text-align: left;
+}
+
+.magik-category-list {
+    margin: 10px 0;
+}
+
+.magik-categories {
+    display: flex;
+    /* justify-content: center; */
+    list-style: none;
+    padding: 0;
+    gap: 15px;
+}
+
+.magik-category {
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.magik-category.active {
+    border-color: {{section.settings.primary_color}};
+}
+
+/* Subb (Cards Collection) */
+.magik-subb {
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox: Hide scrollbar */
+    -ms-overflow-style: none; /* IE and Edge: Hide scrollbar */
+}
+
+.magik-subb::-webkit-scrollbar {
+    display: none; /* Webkit browsers: Hide scrollbar */
+}
+
+.magik-cards-collection {
+    display: flex;
+    gap: 20px;
+    display: none; /* Hidden by default */
+    padding: 10px;
+}
+
+.magik-cards-collection.active {
+    display: flex; /* Show only the active category */
+}
+
+.magik-card {
+    min-width: 220px; /* Fixed card size */
+    /* border: 1px solid #ddd; */
+    border-radius: 5px;
+    overflow: hidden;
+    flex-shrink: 0; /* Prevent cards from shrinking */
+    transition: transform 0.3s ease;
+}
+.magik-card-image{
+    height: 360px;
+    width: 360px;
+    background-color: #f9f9f9;
+
+}
+.magik-card-image .imges1 {
+    width: 100%;
+    height: 360px;
+    mix-blend-mode: darken;
+}
+
+/* Card Text Styling */
+.magik-card-text {
+    padding: 10px;
+    /* text-align: center; */
+}
+
+.magik-price {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.magik-add-to-cart {
+    display: none;
+    margin-top: 10px;
+    background-color: {{section.settings.primary_color}};
+    color: {{section.settings.secondary_color}};
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    width: -webkit-fill-available;
+    height: 45px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .magik-categories {
+        flex-direction: column;
+    }
+
+    .magik-card {
+        min-width: 180px;
+    }
+}
+
+/* Container for horizontal scrolling */
+.magik-subb {
+    display: flex; /* Align children horizontally */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent wrapping of children */
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar in IE and Edge */
+}
+
+/* Hide scrollbar in Webkit browsers */
+.magik-subb::-webkit-scrollbar {
+    display: none;
+}
+
+/* Each collection should take full width of the container */
+.magik-cards-collection {
+    display: flex;
+    flex: 0 0 auto; /* Prevent shrinking, ensure proper width */
+    gap: 20px; /* Space between cards */
+}
+
+/* Ensure cards inside the collections do not overflow */
+.magik-card {
+    flex-shrink: 0; /* Prevent cards from shrinking */
+    min-width: 220px; /* Fixed width for cards */
+}
+
+/* Ensure the parent ul is positioned relative */
+.magik-categories {
+    position: relative;
+    display: flex;
+    /* justify-content: center; */
+    list-style: none;
+    padding: 0;
+    gap: 15px;
+}
+
+.magik-category {
+    position: relative;
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    border-left: 0;
+    transition: border-color 0.3s ease;
+    border-right: 0;
+    border-top: 0;
+    border-bottom-width: 4px;
+}
+
+.magik-category:not(:first-child)::after {
+    content: "";
+    position: absolute;
+    left: -2px; /* Adjust positioning as needed */
+    top: 0;
+    background: #000;
+    height: 16px;
+    width: 2px;
+    margin: auto;
+    bottom: 0;
+}
+
+
+/* hover part */
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    /* Main Container */
+    .magik-main-container {
+        padding: 10px;
+    }
+    
+    /* Suba (Title and Categories) */
+    .magik-suba {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .magik-title h2 {
+        font-size: 20px;
+        margin-bottom: 5px;
+        padding-left: 10px;
+        text-align: left;
+    }
+
+    .magik-category-list {
+        margin: 5px 0;
+    }
+
+    .magik-categories {
+        flex-direction: column;
+        align-items: center;
+        gap: 0px;
+        position: relative;
+        display: flex;
+        padding: 0;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    .magik-category {
+        padding: 8px 15px;
+        /* border: 1px solid transparent; */
+        border-bottom-width: 4px;
+        font-size: 14px;
+    }
+
+    .magik-category.active {
+        border-color:{{section.settings.primary_color}};
+    }
+
+    /* Subb (Cards Collection) */
+    .magik-subb {
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none; /* Firefox: Hide scrollbar */
+        -ms-overflow-style: none; /* IE and Edge: Hide scrollbar */
+        padding: 0;
+    }
+
+    .magik-subb::-webkit-scrollbar {
+        display: none; /* Webkit browsers: Hide scrollbar */
+    }
+
+    .magik-cards-collection {
+        display: flex;
+        gap: 15px;
+        display: flex; /* Show only the active category */
+        padding: 5px;
+        flex-wrap: nowrap;
+    }
+
+    .magik-card {
+        min-width: 160px; /* Reduced card size */
+        border-radius: 4px;
+        overflow: hidden;
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+    }
+
+    .magik-card-image {
+        height: 240px; /* Adjusted height */
+        width: 240px; /* Adjusted width */
+        background-color: #f9f9f9;
+    }
+
+        .magik-card-image .imges1 {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        mix-blend-mode: darken;
+    }
+
+    /* Card Text Styling */
+    .magik-card-text {
+        padding: 8px;
+        text-align: center;
+    }
+
+    .magik-price {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .magik-add-to-cart {
+        display: block;
+        margin-top: 8px;
+        background-color: {{section.settings.primary_color}};
+        color: white;
+        padding: 6px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    /* Responsive design adjustments */
+    .magik-categories {
+        position: static;
+        padding: 0;
+    }
+
+    .magik-category:not(:first-child)::after {
+        display: none; /* Hide the separator on mobile */
+    }
+}
+      /* hoverimgae */
+      
+      .magik-card-image .imges2 {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          mix-blend-mode: darken;
+      }
+      
+      .magik-card-image .imges2 {
+          width: 100%;
+          height: 360px;
+          mix-blend-mode: darken;
+      }
+      .magik-card:hover .imges1{
+          display: none;
+      }
+      .magik-card:hover .magik-add-to-cart{
+          display: block;
+      }
+</style>
+
+<script>
+  
+document.addEventListener('DOMContentLoaded', function() {
+    const categories = document.querySelectorAll('.magik-category');
+    const cardCollections = document.querySelectorAll('.magik-cards-collection');
+    const container = document.querySelector('.magik-subb');
+
+    // Function to update the active category based on the visible card collection
+    function updateActiveCategory() {
+        let activeCollection = null;
+
+        cardCollections.forEach(collection => {
+            const rect = collection.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+
+            // Check if the collection is within the viewport
+            if (rect.left < containerRect.right && rect.right > containerRect.left) {
+                activeCollection = collection;
+            }
+        });
+
+        if (activeCollection) {
+            // Update active category
+            const categoryToActivate = document.querySelector(`.magik-category[data-category="${activeCollection.classList[1]}"]`);
+            categories.forEach(cat => cat.classList.remove('active'));
+            if (categoryToActivate) {
+                categoryToActivate.classList.add('active');
+            }
+        }
+    }
+
+    // Initialize: Show the first card collection by default if it exists
+    const defaultCollection = document.querySelector('.magik-cards-collection');
+    if (defaultCollection) {
+        defaultCollection.classList.add('active');
+        // Set the default active category
+        const defaultCategory = document.querySelector(`.magik-category[data-category="${defaultCollection.classList[1]}"]`);
+        if (defaultCategory) {
+            defaultCategory.classList.add('active');
+        }
+    }
+
+    // Add scroll event listener to update active category
+    container.addEventListener('scroll', updateActiveCategory);
+
+    // Handle category clicks
+    categories.forEach(category => {
+        category.addEventListener('click', function() {
+            // Remove 'active' class from all categories and card collections
+            categories.forEach(cat => cat.classList.remove('active'));
+            cardCollections.forEach(collection => collection.classList.remove('active'));
+
+            // Add 'active' class to the clicked category
+            this.classList.add('active');
+
+            // Show the corresponding card collection
+            const selectedCategory = this.getAttribute('data-category');
+            const activeCollection = document.querySelector(`.magik-cards-collection.${selectedCategory}`);
+            if (activeCollection) {
+                activeCollection.classList.add('active');
+
+                // Scroll smoothly to the active collection
+                activeCollection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'start'
+                });
+            }
+        });
+    });
+
+    // Initial check to set the correct active category
+    updateActiveCategory();
+});
+
+// scroll center card 
+  document.addEventListener('DOMContentLoaded', function () {
+    const container = document.querySelector('.magik-subb');
+    const cards = Array.from(document.querySelectorAll('.magik-card'));
+
+    function centerCard(card) {
+        const containerWidth = container.clientWidth;
+        const cardWidth = card.clientWidth;
+        const containerScrollLeft = container.scrollLeft;
+        const cardOffsetLeft = card.offsetLeft;
+
+        // Calculate the new scroll position to center the card
+        const centerOffset = cardOffsetLeft - (containerWidth / 2) + (cardWidth / 2);
+        container.scrollTo({
+            left: centerOffset,
+            behavior: 'smooth'
+        });
+    }
+
+    function handleScroll() {
+        // Find the card closest to the center of the viewport
+        const containerRect = container.getBoundingClientRect();
+        let closestCard = null;
+        let minDistance = Infinity;
+
+        cards.forEach(card => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = cardRect.left + (cardRect.width / 2);
+            const containerCenter = containerRect.left + (containerRect.width / 2);
+            const distance = Math.abs(cardCenter - containerCenter);
+
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestCard = card;
+            }
+        });
+
+        if (closestCard) {
+            centerCard(closestCard);
+        }
+    }
+
+    // Debounce function to limit how often the scroll handler runs
+    function debounce(func, wait) {
+        let timeout;
+        return function() {
+            clearTimeout(timeout);
+            timeout = setTimeout(func, wait);
+        };
+    }
+
+    // Handle scroll with debounce
+    container.addEventListener('scroll', debounce(handleScroll, 100));
+
+    // Initial centering for the most visible card on page load
+    handleScroll();
+});
+
+  // add tocart
+
+ document.querySelectorAll('.add-to-cart-form').forEach(form => {
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const data = new URLSearchParams(formData).toString();
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: data,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Product added to cart:', data);
+        // Optionally update the cart UI or show a notification
+        alert('Product added to cart!');
+      })
+      .catch(error => {
+        console.error('Error adding product to cart:', error);
+      });
+    });
+  });
+</script>
