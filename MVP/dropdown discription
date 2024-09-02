@@ -1,0 +1,145 @@
+ <div class="product-single">
+    <!-- Existing code for product image, title, etc. -->
+
+    <!-- Insert the dropdown sections here -->
+    <div class="dropdown-sections">
+      {% if product.metafields.custom.product_details %}
+        <div class="dropdown-section">
+          <h2 class="dropdown-title">Details</h2>
+          <div class="dropdown-content">
+            <div class="details-table">
+              <div class="details-row">
+                <div class="details-column">
+                  <h3>Item Details</h3>
+                  <p><strong>SKU:</strong> EAGTXE03658-80-GW4</p>
+                  <p><strong>Gender:</strong> Women</p>
+                  <p><strong>Style:</strong> Stud Earrings</p>
+                  <p><strong>Carat Total Weight:</strong> 8.00</p>
+                  <p><strong>Metal Type & Color:</strong> 14K White Gold</p>
+                  <p><strong>Rhodium Plated:</strong> Yes</p>
+                  <p><strong>Back Type:</strong> Guardian Back</p>
+                </div>
+                <div class="details-column">
+                  <h3>Diamond Details</h3>
+                  <p><strong>Stone Type:</strong> Diamond</p>
+                  <p><strong>Creation Method:</strong> Lab Grown</p>
+                  <p><strong>Shape:</strong> Round</p>
+                  <p><strong>Diamond Color:</strong> Near-Colorless (FG)</p>
+                  <p><strong>Color:</strong> White</p>
+                  <p><strong>Clarity:</strong> VS2+</p>
+                  <p><strong>Cut Grade:</strong> Excellent</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if product.metafields.custom.shipping_info %}
+        <div class="dropdown-section">
+          <h2 class="dropdown-title">Shipping</h2>
+          <div class="dropdown-content">
+            {{ product.metafields.custom.shipping_info }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if product.metafields.custom.return_policy %}
+        <div class="dropdown-section">
+          <h2 class="dropdown-title">Returns</h2>
+          <div class="dropdown-content">
+            {{ product.metafields.custom.return_policy }}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Continue with existing product content -->
+  </div>
+
+
+      <style>
+    .dropdown-section {
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 20px;
+  }
+
+  .dropdown-title {
+    cursor: pointer;
+    font-size: 1.5em;
+    padding: 10px 0;
+    border-bottom: 1px solid #b14d3a;
+    color: #b14d3a;
+  }
+
+  .dropdown-content {
+    display: none;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+  }
+     .dropdown-content {
+        display: none;
+        padding: 10px 0;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .details-table {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .details-column {
+        width: 45%;
+      }
+
+      .details-column h3 {
+        font-size: 1.2em;
+        color: #b14d3a;
+        margin-bottom: 10px;
+      }
+
+      .details-column p {
+        font-size: 1em;
+        margin: 5px 0;
+        border-bottom: 1px solid #b14d3a;
+        padding-bottom: 5px;
+      }
+
+      .details-column p strong {
+        font-weight: bold;
+      }
+
+      .details-row {
+        display: flex;
+        /* justify-content: center; */
+        width: 100%;
+        justify-content: space-evenly;
+      }
+
+      @media (max-width: 769px){
+        .details-row {
+        display: block;
+      }
+      .details-column {
+        width: 100%;
+      }
+      }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    var titles = document.querySelectorAll(".dropdown-title");
+
+    titles.forEach(function (title) {
+      title.addEventListener("click", function () {
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    });
+  });
+</script>
